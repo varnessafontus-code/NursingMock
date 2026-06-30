@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUR201 Exam 3 Mock Exam — GI System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{--navy:#1F3864;--teal:#1F6B75;--green:#2D6A4F;--red:#C00000;--orange:#C55A11;--purple:#5C2D91;--blue:#2E75B6;--lt-blue:#D6E4F0;--lt-green:#D8F3DC;--lt-red:#FFE0E0;--lt-orange:#FCE4D6;--lt-purple:#EDE7F6;--gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;--gray-400:#94A3B8;--gray-600:#475569;--gray-800:#1E293B;--white:#FFFFFF;--bg:#F0F4F8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--gray-800);min-height:100vh;}
+#topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+#topbar .ti{color:#fff;font-weight:700;font-size:14px;} #topbar .si{color:#93C5FD;font-size:11px;margin-top:1px;}
+#pw{display:flex;align-items:center;gap:10px;} #pbo{width:160px;height:5px;background:rgba(255,255,255,.2);border-radius:3px;} #pbi{height:5px;background:#34D399;border-radius:3px;transition:width .4s;width:0%;}
+#pt{color:#D1FAE5;font-size:11px;font-weight:600;white-space:nowrap;} #tmr{background:rgba(255,255,255,.1);border-radius:7px;padding:3px 10px;color:#FDE68A;font-family:monospace;font-size:13px;font-weight:700;}
+#app{padding-top:68px;padding-bottom:90px;max-width:800px;margin:0 auto;padding-left:14px;padding-right:14px;}
+/* Cover */
+#cover{background:#fff;border-radius:14px;padding:44px 36px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-top:16px;text-align:center;}
+.cb{display:inline-block;background:var(--navy);color:#93C5FD;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.ch1{font-size:30px;font-weight:800;color:var(--navy);line-height:1.15;margin-bottom:6px;}
+.ch2{font-size:17px;color:var(--teal);font-weight:600;margin-bottom:22px;}
+.cst{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0;}
+.csc{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:9px;padding:14px 6px;}
+.csc .v{font-size:24px;font-weight:800;color:var(--navy);} .csc .l{font-size:11px;color:var(--gray-600);font-weight:500;margin-top:2px;}
+.cr{background:var(--lt-red);border-left:4px solid var(--red);border-radius:7px;padding:14px 18px;margin:18px 0;text-align:left;}
+.cr p{font-size:13px;color:#7F1D1D;line-height:1.65;} .cr strong{font-weight:700;}
+.bst{background:var(--teal);color:#fff;border:none;border-radius:11px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.02em;transition:all .2s;margin-top:6px;}
+.bst:hover{background:var(--navy);transform:translateY(-1px);box-shadow:0 5px 18px rgba(31,107,117,.35);}
+/* Q card */
+.qc{background:#fff;border-radius:12px;padding:24px 28px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:14px;display:none;}
+.qc.active{display:block;}
+.qm{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.qn{background:var(--navy);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.qt{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;}
+.bn{background:#FDE68A;color:#78350F;} .bm{background:var(--lt-blue);color:var(--navy);} .bs{background:var(--lt-purple);color:var(--purple);}
+.qtop{font-size:10px;color:var(--gray-400);font-style:italic;margin-left:auto;}
+.vig{background:var(--lt-blue);border-left:4px solid var(--blue);border-radius:7px;padding:12px 16px;margin-bottom:16px;font-size:13px;line-height:1.7;}
+.vs{font-weight:700;color:var(--navy);}
+.hp{background:#FFFBEB;border:2px dashed #D97706;border-radius:7px;padding:12px 16px;margin-bottom:16px;font-size:13px;line-height:1.85;cursor:default;}
+.hlb{font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block;}
+.hw{cursor:pointer;border-radius:3px;padding:1px 2px;transition:all .12s;}
+.hw:hover{background:#FDE68A;} .hw.sel{background:#FCD34D;font-weight:600;outline:2px solid #D97706;}
+.hw.chl{background:#A7F3D0;font-weight:600;outline:2px solid #059669;}
+.hw.mhl{background:#FED7AA;outline:2px dashed #EA580C;}
+.hw.whl{background:#FECACA;outline:2px solid #DC2626;}
+.ct{font-size:14px;line-height:2.2;margin-bottom:16px;}
+.cs{border:2px solid var(--blue);border-radius:6px;padding:3px 7px;font-size:13px;background:var(--lt-blue);color:var(--navy);cursor:pointer;min-width:100px;}
+.cs.ac{border-color:var(--green);background:var(--lt-green);color:var(--green);}
+.cs.aw{border-color:var(--red);background:var(--lt-red);color:var(--red);}
+.mt{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px;}
+.mt th{background:var(--teal);color:#fff;padding:9px 12px;text-align:left;font-weight:600;font-size:11px;}
+.mt th:not(:first-child){text-align:center;}
+.mt td{padding:9px 12px;border-bottom:1px solid var(--gray-200);vertical-align:middle;}
+.mt tr:nth-child(even) td{background:var(--gray-50);}
+.mr{width:18px;height:18px;cursor:pointer;accent-color:var(--teal);}
+.mt tr.rc td{background:var(--lt-green)!important;} .mt tr.rw td{background:var(--lt-red)!important;}
+.qs{font-size:14px;font-weight:600;line-height:1.6;color:var(--gray-800);margin-bottom:16px;}
+.sn{font-size:11px;color:var(--purple);font-weight:600;margin-bottom:12px;background:var(--lt-purple);padding:5px 10px;border-radius:5px;display:inline-block;}
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:2px solid var(--gray-200);border-radius:9px;cursor:pointer;transition:all .12s;background:#fff;font-size:13.5px;line-height:1.5;user-select:none;}
+.opt:hover:not(.dis){border-color:var(--teal);background:#F0FDFA;}
+.opt.sel{border-color:var(--teal);background:#F0FDFA;}
+.opt.cor{border-color:var(--green);background:var(--lt-green);}
+.opt.inc{border-color:var(--red);background:var(--lt-red);}
+.opt.mis{border-color:var(--orange);background:var(--lt-orange);}
+.opt.dis{cursor:default;}
+.ol{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gray-100);border:2px solid var(--gray-200);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--gray-600);transition:all .12s;}
+.opt.sel .ol{background:var(--teal);border-color:var(--teal);color:#fff;}
+.opt.cor .ol{background:var(--green);border-color:var(--green);color:#fff;}
+.opt.inc .ol{background:var(--red);border-color:var(--red);color:#fff;}
+.opt.mis .ol{background:var(--orange);border-color:var(--orange);color:#fff;}
+.fb{margin-top:16px;border-radius:9px;padding:14px 18px;display:none;font-size:13px;line-height:1.65;}
+.fb.sh{display:block;} .fb.cf{background:var(--lt-green);border-left:5px solid var(--green);}
+.fb.wf{background:var(--lt-red);border-left:5px solid var(--red);}
+.fh{font-weight:700;font-size:13px;margin-bottom:5px;}
+.fb.cf .fh{color:var(--green);} .fb.wf .fh{color:var(--red);}
+.qa{display:flex;gap:10px;margin-top:18px;}
+.bsub{background:var(--teal);color:#fff;border:none;border-radius:9px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.bsub:hover{background:var(--navy);} .bsub:disabled{background:var(--gray-400);cursor:not-allowed;}
+.bnxt{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;display:none;}
+.bnxt:hover{background:var(--teal);}
+/* Nav */
+#qnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--gray-200);padding:8px 14px;display:none;overflow-x:auto;}
+#qni{display:flex;gap:5px;max-width:800px;margin:0 auto;}
+.nd{width:30px;height:30px;border-radius:7px;border:2px solid var(--gray-200);background:var(--gray-100);font-size:10px;font-weight:700;color:var(--gray-600);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s;}
+.nd.cur{border-color:var(--navy);background:var(--navy);color:#fff;}
+.nd.ac{border-color:var(--green);background:var(--lt-green);color:var(--green);}
+.nd.aw{border-color:var(--red);background:var(--lt-red);color:var(--red);}
+.nd.ap{border-color:var(--orange);background:var(--lt-orange);color:var(--orange);}
+/* Results */
+#res{display:none;background:#fff;border-radius:14px;padding:44px 36px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-top:16px;}
+.rh{text-align:center;}
+.sc{width:130px;height:130px;border-radius:50%;margin:20px auto;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;}
+.sp{font-size:36px;} .sr{font-size:13px;font-weight:600;margin-top:3px;}
+.ga{background:var(--lt-green);border:4px solid var(--green);color:var(--green);}
+.gb{background:#DBEAFE;border:4px solid var(--blue);color:var(--blue);}
+.gc{background:#FFFBEB;border:4px solid #D97706;color:#92400E;}
+.gd{background:var(--lt-red);border:4px solid var(--red);color:var(--red);}
+.rb{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:22px 0;}
+.rbc{border:1px solid var(--gray-200);border-radius:9px;padding:14px;text-align:center;}
+.rbv{font-size:22px;font-weight:800;color:var(--navy);} .rbl{font-size:11px;color:var(--gray-600);margin-top:3px;}
+.rt{width:100%;border-collapse:collapse;font-size:13px;margin-top:20px;}
+.rt th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;}
+.rt td{padding:9px 12px;border-bottom:1px solid var(--gray-200);}
+.rt tr:nth-child(even) td{background:var(--gray-50);}
+.rc2{color:var(--green);font-weight:700;} .rw2{color:var(--red);font-weight:700;} .rp{color:var(--orange);font-weight:700;}
+.brt{background:var(--teal);color:#fff;border:none;border-radius:11px;padding:13px 32px;font-size:14px;font-weight:700;cursor:pointer;margin-top:24px;transition:all .2s;}
+.brt:hover{background:var(--navy);}
+@media(max-width:600px){.qc{padding:16px 14px;} .cst{grid-template-columns:repeat(2,1fr);} .rb{grid-template-columns:1fr 1fr;} .ch1{font-size:22px;} #pbo{width:90px;}}
+
+</style>
+</head>
+<body>
+<div id="topbar">
+  <div><div class="ti">NUR201 Med-Surg III — Exam 3</div><div class="si">Chapters 45–52 · GI System · 50 Questions</div></div>
+  <div id="pw"><div id="pbo"><div id="pbi"></div></div><div id="pt">0/50</div><div id="tmr">90:00</div></div>
+</div>
+<div id="app">
+<div id="cover">
+  <div class="cb">NUR201 · Med-Surg Nursing III</div>
+  <h1 class="ch1">Exam 3 Mock Exam</h1>
+  <h2 class="ch2">Gastrointestinal System — Chapters 45–52</h2>
+  <div class="cst">
+    <div class="csc"><div class="v">50</div><div class="l">Questions</div></div>
+    <div class="csc"><div class="v">15</div><div class="l">NGN Style</div></div>
+    <div class="csc"><div class="v">90</div><div class="l">Minutes</div></div>
+    <div class="csc"><div class="v">49</div><div class="l">Topics</div></div>
+  </div>
+  <div class="cr">
+    <p><strong>⚠ Professor Rule:</strong> Every drug in every chapter is testable — know brand name, generic name, mechanism, side effects, and nursing implications.</p>
+    <p style="margin-top:7px"><strong>NGN Highlight Rule:</strong> Normal vital signs in Highlight questions are ALWAYS distractors — never select them.</p>
+    <p style="margin-top:7px"><strong>Priority Rule:</strong> Hemodynamic instability > expected chronic findings. Airway always first.</p>
+  </div>
+  <button class="bst" onclick="startExam()">Begin Exam →</button>
+</div>
+<div id="qcon"></div>
+<div id="res"></div>
+</div>
+<div id="qnav"><div id="qni"></div></div>
+
+<script>
+const Q=[
+// ── NGN Q1-3: UNFOLDING CASE (Cirrhosis/Varices/Lactulose)
+{id:1,type:'sata',ngn:true,topic:'Cirrhosis, Esophageal Varices, Priority',
+vig:`A 58-year-old male with 20-year alcohol use disorder arrives vomiting bright red blood. PMH: cirrhosis ×3 yr. Meds: spironolactone 100mg daily, lactulose 30mL TID, propranolol 40mg BID.<br><span class="vs">VS: T 99.1°F | HR 118 bpm | BP 88/54 mmHg | RR 22 | SpO2 96% RA</span><br>Ammonia 142 | Hgb 7.2 g/dL | INR 2.8 | Plt 62,000 | Na 128 | K 3.1. Oriented to person only. Asterixis bilaterally. Abdomen distended with caput medusae. Jaundiced.`,
+stem:'Which TWO findings represent the most immediate life-threatening priorities? (SELECT ALL THAT APPLY)',
+opts:['Ammonia level of 142 mcg/dL','BP 88/54 mmHg with HR 118 bpm','Scleral icterus and jaundice','Hemoglobin of 7.2 g/dL','Serum sodium of 128 mEq/L'],
+cor:[1,3],
+rat:'BP 88/54 + HR 118 = hypovolemic shock from active upper GI hemorrhage — IMMEDIATE life threat. Hgb 7.2 in a patient actively vomiting blood = massive hemorrhage requiring emergency transfusion. Elevated ammonia confirms hepatic encephalopathy but is NOT the priority hemodynamic threat. Jaundice and hyponatremia are CHRONIC expected findings in decompensated cirrhosis — classic NGN DISTRACTORS. Remember: hemodynamic instability always takes priority over expected chronic abnormal findings.'},
+
+{id:2,type:'mcq',ngn:true,topic:'Lactulose Therapeutic Goal, Hepatic Encephalopathy',
+vig:'Continuing from Q1: Client stabilized with 2 units PRBCs and IV octreotide. Now oriented x2. Nurse reviews lactulose 30 mL TID order.',
+stem:'Which assessment finding confirms lactulose is achieving its THERAPEUTIC GOAL?',
+opts:['Client reports complete relief of abdominal distension','Serum potassium rises from 3.1 to 3.8 mEq/L','Client produces 2–3 soft stools per day','Serum ammonia decreases from 142 to 108 mcg/dL'],
+cor:[2],
+rat:'Therapeutic goal of lactulose = 2–3 SOFT STOOLS PER DAY — this is Iggy\'s defined endpoint. Lactulose traps NH3 as NH4+ in the colon and eliminates it in stool. <1 stool/day = inadequate (notify provider, increase dose). >3 liquid stools = overdose (reduce dose). A drop in ammonia is a secondary lab finding but NOT the nurse\'s target for titrating lactulose.'},
+
+{id:3,type:'mcq',ngn:true,topic:'Esophageal Varices, EVL Post-Procedure',
+vig:'Continuing from Q1–2: EGD confirms actively bleeding esophageal varices. Provider performs endoscopic variceal ligation (banding).',
+stem:'Immediately post-EVL, which nursing action is the HIGHEST priority?',
+opts:['Administer lactulose 30 mL via NG tube immediately','Position client flat to improve cerebral perfusion','Monitor vital signs every 15 minutes and assess for re-bleeding','Encourage ambulation to prevent DVT'],
+cor:[2],
+rat:'After variceal banding, HIGHEST PRIORITY is hemodynamic monitoring every 15 min for re-bleeding — varices can re-bleed acutely. Flat positioning drops cerebral perfusion (HOB should be elevated). Lactulose may be appropriate later but NOT immediate post-procedure priority. Ambulation is CONTRAINDICATED during active hemorrhagic recovery.'},
+
+// ── NGN Q4: HIGHLIGHT (Ulcerative Colitis)
+{id:4,type:'hl',ngn:true,topic:'Ulcerative Colitis, IBD, Priority Assessment',
+vig:`<span class="hw" data-i="0">T 100.8°F</span> <span class="hw" data-i="1">HR 108 bpm</span> <span class="hw" data-i="2">RR 18</span> <span class="hw" data-i="3">BP 102/68 mmHg</span> <span class="hw" data-i="4">SpO2 98% RA.</span> A 28-year-old female with UC admitted during acute flare. Reports <span class="hw" data-i="5">10–12 bloody diarrhea stools today</span> with severe cramping. Skin turgor poor. Mucous membranes dry. LLQ tenderness. <span class="hw" data-i="6">Potassium 3.0 mEq/L.</span> <span class="hw" data-i="7">Hemoglobin 8.4 g/dL.</span> Weight 3.2 kg below baseline. <span class="hw" data-i="8">Alert and oriented x4.</span> <span class="hw" data-i="9">Hyperactive bowel sounds.</span>`,
+stem:'Highlight ALL findings requiring immediate follow-up. Do NOT select normal findings.',
+hlcor:[1,3,5,6,7],
+rat:'✓ HR 108 + BP 102/68 = tachycardia + hypotension = early hemodynamic instability. ✓ 10–12 bloody stools = acute hemorrhagic flare with active blood and fluid losses. ✓ K 3.0 = hypokalemia = cardiac arrhythmia risk (UC causes massive K+ loss via diarrhea). ✓ Hgb 8.4 = low, chronic blood loss. DISTRACTORS — DO NOT SELECT: T 100.8 (low-grade), RR 18 (NORMAL), SpO2 98% (NORMAL), alert x4 (NORMAL), hyperactive bowel sounds (EXPECTED with IBD flare).'},
+
+// ── NGN Q5: MATRIX (Post-Procedure Care)
+{id:5,type:'mat',ngn:true,topic:'Liver Biopsy, ERCP, Colonoscopy, Paracentesis, HIDA',
+stem:'For each nursing action, indicate whether it is INDICATED or CONTRAINDICATED.',
+mrows:[
+{t:'After liver biopsy — position on RIGHT side for 2 hours',c:['Indicated','Contraindicated'],cor:0},
+{t:'After ERCP — check gag reflex before offering food or fluids',c:['Indicated','Contraindicated'],cor:0},
+{t:'After colonoscopy — instruct client they may drive home immediately',c:['Indicated','Contraindicated'],cor:1},
+{t:'Before paracentesis — have client void to empty the bladder',c:['Indicated','Contraindicated'],cor:0},
+{t:'After liver biopsy — encourage deep coughing and breathing exercises',c:['Indicated','Contraindicated'],cor:1},
+{t:'After ERCP — monitor serum amylase and lipase',c:['Indicated','Contraindicated'],cor:0},
+],
+rat:'RIGHT-SIDE after liver biopsy: body weight tamponades the biopsy site → prevents hemorrhage — INDICATED. GAG REFLEX post-ERCP: topical anesthetic used → aspiration risk before reflex returns — INDICATED. NO DRIVING after colonoscopy: moderate sedation given; no driving 12–18 hr — CONTRAINDICATED. VOID before paracentesis: prevents inadvertent bladder puncture — INDICATED. NO COUGHING post-biopsy: raises IAP → hepatic hemorrhage risk — CONTRAINDICATED. AMYLASE/LIPASE after ERCP: pancreatic duct manipulation = pancreatitis risk — INDICATED.'},
+
+// ── NGN Q6: DROPDOWN (Hepatitis A/B/C)
+{id:6,type:'dd',ngn:true,topic:'Hepatitis A, B, C — Transmission, Vaccination, Treatment',
+stem:'Complete the clinical teaching notes by selecting the correct option for each blank.',
+cloze:'Hep A: transmitted via [0]. Prognosis: [1] — does NOT become chronic. Hep B: transmitted through [2]. Drug treatment: [3]. Hep B vaccine: [4]. Hep C: most common cause of [5] in the US. Hep C vaccine: [6].',
+blanks:[
+{l:'Blank 1',c:['Bloodborne/parenteral','Oral-fecal (contaminated food/water)','Sexual contact only','Airborne droplets'],cor:1},
+{l:'Blank 2',c:['Chronic and progressive','Fatal without transplant','Self-limiting','Requires lifelong therapy'],cor:2},
+{l:'Blank 3',c:['Contaminated food/water','Blood, sexual contact, or perinatal','Respiratory droplets','Fomites'],cor:1},
+{l:'Blank 4',c:['Interferon alpha only','Omeprazole','Tenofovir or lamivudine','Ribavirin monotherapy'],cor:2},
+{l:'Blank 5',c:['NOT available — no vaccine exists','IS available — 3-dose series'],cor:1},
+{l:'Blank 6',c:['Pancreatitis','Colorectal cancer','Cirrhosis and liver cancer','Cholelithiasis'],cor:2},
+{l:'Blank 7',c:['IS available','NO vaccine currently available'],cor:1},
+],
+rat:'Hep A: oral-fecal, self-limiting, no chronic disease, vaccine available. Hep B: blood/sexual/perinatal, nucleotide analogs (tenofovir, lamivudine), vaccine available, 90-95% of adults clear infection. Hep C: bloodborne, most common cause of cirrhosis and liver cancer in the US, NO vaccine currently available.'},
+
+// ── NGN Q7: HIGHLIGHT (Post-Op Appendectomy/Peritonitis)
+{id:7,type:'hl',ngn:true,topic:'Appendicitis, Post-Op Complications, Peritonitis, Sepsis',
+vig:`19-year-old male returns from emergency appendectomy for ruptured appendix, 12 hours post-op. <span class="hw" data-i="0">T 102.8°F</span> <span class="hw" data-i="1">HR 124 bpm</span> <span class="hw" data-i="2">RR 24</span> <span class="hw" data-i="3">BP 94/58 mmHg</span> <span class="hw" data-i="4">SpO2 95% RA.</span> <span class="hw" data-i="5">Severe diffuse abdominal pain 9/10</span> worse with movement. <span class="hw" data-i="6">Abdomen rigid and board-like.</span> <span class="hw" data-i="7">Bowel sounds absent all 4 quadrants.</span> Wound dressing <span class="hw" data-i="8">dry and intact.</span> <span class="hw" data-i="9">Urine output 18 mL past hour.</span> Client restless and <span class="hw" data-i="10">diaphoretic.</span> <span class="hw" data-i="11">WBC 24,000/mm³.</span>`,
+stem:'Highlight ALL findings indicating a post-operative complication requiring IMMEDIATE provider notification.',
+hlcor:[0,1,3,4,5,6,7,9,10,11],
+rat:'ALL highlighted indicate sepsis and peritonitis: T 102.8 + WBC 24,000 = systemic infection. HR 124 + BP 94/58 + diaphoresis = septic shock. UO 18 mL/hr = oliguria (min 30 mL/hr) = renal hypoperfusion. Rigid board-like abdomen + 9/10 pain = peritonitis. Absent bowel sounds = paralytic ileus. SpO2 95% = hypoxemia. DISTRACTORS — DO NOT SELECT: RR 24 (borderline), dry intact dressing (expected normal post-op finding).'},
+
+// ── NGN Q8: MATRIX (Acute Pancreatitis)
+{id:8,type:'mat',ngn:true,topic:'Acute Pancreatitis, Meperidine Contraindication, Pain',
+vig:'45-year-old female with acute pancreatitis. Lipase 1,840 U/L. Blood glucose 310. Abdomen rigid, bowel sounds absent. Currently NPO.',
+stem:'For each intervention, indicate whether it is APPROPRIATE or NOT APPROPRIATE.',
+mrows:[
+{t:'Administer PCA morphine sulfate as ordered',c:['Appropriate','Not Appropriate'],cor:0},
+{t:'Administer meperidine (Demerol) IM for pain',c:['Appropriate','Not Appropriate'],cor:1},
+{t:'Maintain strict NPO status',c:['Appropriate','Not Appropriate'],cor:0},
+{t:'Advance diet to clear liquids based on client hunger',c:['Appropriate','Not Appropriate'],cor:1},
+{t:'Monitor blood glucose every 4–6 hours',c:['Appropriate','Not Appropriate'],cor:0},
+{t:'Initiate isotonic IV fluid resuscitation',c:['Appropriate','Not Appropriate'],cor:0},
+],
+rat:'MORPHINE = analgesic of choice — APPROPRIATE. MEPERIDINE = CONTRAINDICATED (normeperidine metabolite accumulates → SEIZURES) — NOT APPROPRIATE. NPO = removes pancreatic stimulation — APPROPRIATE. Advance diet = CONTRAINDICATED with absent bowel sounds/paralytic ileus — wait for return of bowel sounds AND flatus — NOT APPROPRIATE. Blood glucose monitoring = critical — APPROPRIATE. IV fluids = replace third-space losses — APPROPRIATE.'},
+
+// ── NGN Q9: DROPDOWN (TPN/Enteral Nutrition)
+{id:9,type:'dd',ngn:true,topic:'TPN, Enteral Nutrition, NG Tube, Feeding Types',
+vig:'Malnourished 67-year-old male post bowel resection. NPO with NG tube. TPN via central line. Will transition to cyclic nasojejunal feeding.',
+stem:'Complete the nursing documentation by selecting the correct option for each blank.',
+cloze:'Initial NG tube placement confirmed by [0] — auscultation is NOT reliable. While on TPN, monitor [1] every 4–6 hours due to high dextrose. If TPN bag unavailable, hang [2] to prevent rebound hypoglycemia. HOB must be [3] during all tube feedings. Cyclic feeding includes a daily [4] of 6+ hours.',
+blanks:[
+{l:'Blank 1',c:['Auscultating air over epigastric area','Abdominal x-ray — only reliable method','Aspirate color check','pH testing alone'],cor:1},
+{l:'Blank 2',c:['Serum ammonia level','Blood glucose level','Serum lipase level','Urine specific gravity'],cor:1},
+{l:'Blank 3',c:['D5W at the same rate','D10W (10% dextrose) at the same rate','Normal saline bolus','Lactated Ringer\'s solution'],cor:1},
+{l:'Blank 4',c:['Flat — to promote gastric emptying','At least 30 degrees elevated','High Fowler\'s at all times','Trendelenburg position'],cor:1},
+{l:'Blank 5',c:['"Down time" with infusion stopped','"Up time" with increased infusion rate','Bolus of full-strength formula','Hourly glucose check'],cor:0},
+],
+rat:'X-ray = ONLY reliable initial NG confirmation. TPN contains concentrated dextrose → hyperglycemia → monitor blood glucose every 4–6 hr. If TPN bag runs out, hang D10W to prevent rebound hypoglycemia from residual endogenous insulin. HOB ≥30 degrees continuously during ALL tube feedings to prevent aspiration. Cyclic feeding = continuous infusion with a "down time" (≥6 hours) each day to allow ADLs.'},
+
+// ── NGN Q10: SATA (Crohn's Disease)
+{id:10,type:'sata',ngn:true,topic:"Crohn's Disease, Fistulas, IBD Nursing",
+vig:"32-year-old male with Crohn's disease, acute flare. Severe RLQ pain, diarrhea with mucus, 6 kg weight loss over 3 months. Suspected enterovesical fistula.",
+stem:'Which nursing interventions are CORRECT? (SELECT ALL THAT APPLY)',
+opts:['Assess for pyuria and fecaluria indicating enterovesical fistula','Encourage high-fiber diet during the acute flare to promote bowel health','Monitor serum albumin and prealbumin as nutritional status markers','Administer IV corticosteroids as ordered to reduce acute inflammation','Weigh client daily to monitor nutritional and fluid status','Prepare client for a permanent surgical cure via bowel resection'],
+cor:[0,2,3,4],
+rat:"✓ Enterovesical fistulas (bowel-to-bladder) cause pyuria + fecaluria — assess for these (A). ✓ Albumin/prealbumin = nutritional status markers; Crohn's causes malabsorption (C). ✓ IV corticosteroids reduce acute Crohn's flares — SHORT-TERM use only (D). ✓ Daily weights monitor nutritional and fluid status (E). ✗ HIGH-FIBER DIET is CONTRAINDICATED during acute Crohn's flares — increases motility and worsens symptoms (B wrong). ✗ Crohn's disease has NO surgical cure — disease can recur anywhere in the GI tract (F wrong)."},
+
+// ── NGN Q11: HIGHLIGHT (GERD Teaching - needs further teaching)
+{id:11,type:'hl',ngn:true,topic:'GERD, Hiatal Hernia, Patient Teaching',
+vig:`Client with GERD and Type I sliding hiatal hernia made these statements during discharge teaching: <span class="hw" data-i="0">"I will eat 4–6 small meals per day instead of 3 large ones."</span> <span class="hw" data-i="1">"I can have a glass of wine with dinner since it's heart-healthy."</span> <span class="hw" data-i="2">"I will elevate the head of my bed 6–8 inches."</span> <span class="hw" data-i="3">"I should stop eating at least 2–3 hours before lying down."</span> <span class="hw" data-i="4">"I can take sucralfate with my antacid to save time."</span> <span class="hw" data-i="5">"My Type I hiatal hernia will need surgery right away."</span> <span class="hw" data-i="6">"I should avoid chocolate, caffeine, peppermint, and fatty foods."</span>`,
+stem:'Highlight ALL statements indicating a NEED FOR FURTHER TEACHING.',
+hlcor:[1,4,5],
+rat:"✗ 'Wine with dinner': Alcohol RELAXES the LES and directly worsens GERD — needs further teaching. ✗ 'Sucralfate with antacid': Antacids raise pH above 4 and DEACTIVATE sucralfate (requires pH <4 to activate its protective gel) — must separate by ≥30 min — critical medication error — needs further teaching. ✗ 'Type I needs surgery right away': Type I (sliding) hernias are managed MEDICALLY like GERD; surgery only for complications or treatment failure — needs further teaching. ✓ Small meals, HOB elevation, no food before bed, avoiding trigger foods are ALL correct."},
+
+// ── NGN Q12: MATRIX (Abdominal Assessment — IAPP)
+{id:12,type:'mat',ngn:true,topic:'Abdominal Assessment Sequence, IAPP',
+vig:'A nursing student performs an abdominal assessment on a client with suspected bowel obstruction.',
+stem:'Indicate whether each statement about abdominal assessment is TRUE or FALSE.',
+mrows:[
+{t:'Auscultation must occur BEFORE palpation and percussion',c:['True','False'],cor:0},
+{t:'Auscultation begins in the LEFT upper quadrant',c:['True','False'],cor:1},
+{t:'Tympany on percussion over the abdomen is an abnormal finding',c:['True','False'],cor:1},
+{t:'Visible peristaltic waves in an adult indicate bowel obstruction',c:['True','False'],cor:0},
+{t:'If abdominal bruit is heard, percuss the area to confirm it',c:['True','False'],cor:1},
+{t:'Deep palpation is within scope of practice for nurse generalists',c:['True','False'],cor:1},
+],
+rat:'Auscultation BEFORE palpation/percussion: IAPP sequence — palpation/percussion stimulate peristalsis altering bowel sounds (TRUE). Begin auscultation in RLQ (ileocecal valve), NOT LUQ (FALSE). Tympany over abdomen = NORMAL (air-filled intestine) — dullness indicates solid organ/fluid (FALSE). Visible peristaltic waves = ABNORMAL in adults → possible obstruction — report to provider (TRUE). Abdominal bruit = possible aortic aneurysm → STOP, DO NOT percuss/palpate further, notify provider immediately (FALSE). Deep palpation = ADVANCED PRACTICE PROVIDERS only, not nurse generalists (FALSE).'},
+
+// ── NGN Q13: SATA (Post-Op Abdominal Surgery / Exploratory Lap)
+{id:13,type:'sata',ngn:true,topic:'Abdominal Surgery, Exploratory Laparotomy, Post-Op Care',
+vig:'Client returns from exploratory laparotomy for bowel obstruction under general anesthesia. 4 hours post-op. NG tube to low continuous suction. Abdominal drain in place.',
+stem:'Which nursing interventions are CORRECT in the immediate post-op period? (SELECT ALL THAT APPLY)',
+opts:['Assess airway and breathing effectiveness as the FIRST action','Teach client to splint abdomen with a pillow when coughing','Begin a regular diet immediately since client reports hunger','Apply antiembolic stockings and sequential compression devices (SCDs)','Monitor NG tube output and document color and amount','Assist client out of bed to ambulate on evening of surgery if ordered'],
+cor:[0,1,3,4,5],
+rat:'✓ AIRWAY FIRST — always first assessment after returning from surgery (A). ✓ Splinting: reduces pain and protects wound integrity during coughing/movement (B). ✓ SCDs/antiembolic stockings: apply immediately to prevent DVT/PE (D). ✓ NG tube output: document color, quantity, character; assess every 4 hours (E). ✓ Early ambulation on evening of surgery: prevents respiratory complications, DVT, ileus (F). ✗ Regular diet is WRONG — must wait for return of peristalsis (bowel sounds + flatus) before advancing diet after bowel surgery (C wrong).'},
+
+// ── NGN Q14: SATA (Gastric Bypass / Celiac / Malnutrition)
+{id:14,type:'sata',ngn:true,topic:'Gastric Bypass, Celiac Disease, B12 Deficiency, Malnutrition',
+vig:'34-year-old female, 6 months post Roux-en-Y gastric bypass. Reports fatigue, tingling in hands and feet. Labs: macrocytic anemia. Newly diagnosed with celiac disease.',
+stem:'Which statements about this client\'s care are CORRECT? (SELECT ALL THAT APPLY)',
+opts:['Lifelong B12 supplementation required — bypass removes parietal cells that produce intrinsic factor','Celiac disease requires permanent elimination of wheat, barley, and rye','Macrocytic anemia + peripheral neuropathy is consistent with B12 deficiency','Surgery can repair the damaged intestinal villi to restore normal absorption','Refeeding syndrome is a risk if aggressive nutrition restarted too rapidly','Oats must be certified gluten-free before she can safely consume them'],
+cor:[0,1,2,4,5],
+rat:'✓ Bypass removes parietal cells → no intrinsic factor → no B12 absorption → lifelong supplementation mandatory (A). ✓ Celiac = lifelong strict gluten-free diet — the ONLY treatment (B). ✓ Macrocytic anemia + tingling/neuropathy = classic B12 deficiency; this client has TWO mechanisms (C). ✓ Refeeding syndrome = life-threatening electrolyte shifts when nutrition restarted after starvation (E). ✓ Oats are cross-contaminated during processing — must be certified GF (F). ✗ Surgery does NOT repair celiac villi — villi regenerate when gluten eliminated from diet (D wrong).'},
+
+// ── NGN Q15: DROPDOWN (Ostomy/Stoma Care)
+{id:15,type:'dd',ngn:true,topic:'Ileostomy, Colostomy, Stoma Assessment, Ostomy Care',
+stem:'Complete the nursing teaching notes for a client with a new ileostomy by selecting the correct option for each blank.',
+cloze:'Ileostomy output is [0] because the colon has not reabsorbed water. Empty pouch when [1] full. A healthy stoma appears [2]. Clean peristomal skin with [3]. Change faceplate every [4]. A pale, blue, or purple stoma requires [5] because this indicates ischemia.',
+blanks:[
+{l:'Blank 1',c:['Formed and solid','Liquid to semi-liquid','Paste-like','Solid only at night'],cor:1},
+{l:'Blank 2',c:['Full','1/4 full','1/3 to 1/2 full','After each meal'],cor:2},
+{l:'Blank 3',c:['Pale pink and dry','Dusky blue or purple','Dark brown and dry','Beefy red and moist'],cor:3},
+{l:'Blank 4',c:['70% alcohol swabs','Povidone-iodine','Mild soap and water','Hydrogen peroxide'],cor:2},
+{l:'Blank 5',c:['Daily','Every 1–2 days','Every 3–5 days','Weekly'],cor:2},
+{l:'Blank 6',c:['Apply warm compress and reassess','Notify provider immediately — surgical emergency','Clean with alcohol and monitor','Increase fluid intake'],cor:1},
+],
+rat:'Ileostomy output = liquid to semi-liquid (continuous) — colon has not absorbed water. Empty at 1/3–1/2 full (weight pulls on skin barrier if too full). Healthy stoma = BEEFY RED and MOIST (robust blood flow + mucosal secretion). Peristomal care = MILD SOAP AND WATER ONLY — NO alcohol (desiccates skin), iodine (cytotoxic), or peroxide (damages mucosa). Faceplate changed every 3–5 days. Pale/blue/purple = ISCHEMIA = surgical emergency → notify provider IMMEDIATELY.'},
+
+// ── TRADITIONAL MCQ/SATA Q16-Q50 ──
+{id:16,type:'mcq',ngn:false,topic:'Sucralfate — Mechanism, Timing',
+stem:'A client with a peptic ulcer asks how sucralfate works. Which response is MOST accurate?',
+opts:['It suppresses parietal cell acid production for 24 hours','It forms a protective gel barrier over the ulcer in an acidic environment (pH<4)','It neutralizes hydrochloric acid already present in the stomach','It blocks histamine H2 receptors on parietal cells'],
+cor:[1],
+rat:'Sucralfate is a mucosal barrier fortifier — binds to ulcer proteins in ACIDIC environment (pH<4) forming a protective paste "bandage" over the ulcer. It does NOT suppress acid (PPIs do), neutralize acid (antacids do), or block H2 receptors (H2 blockers do). KEY TIMING: 1 hour BEFORE meals and at bedtime on EMPTY STOMACH. Separate from ALL other medications by ≥30 min — gel coating physically traps and blocks absorption of co-administered drugs.'},
+
+{id:17,type:'mcq',ngn:false,topic:'H2 Blockers — Dosing, Osteoporosis Risk',
+stem:'A client taking famotidine (Pepcid) for a duodenal ulcer says, "My friend said this drug causes osteoporosis." Which response is MOST accurate?',
+opts:['Your friend is correct — all acid-suppression drugs cause osteoporosis equally','H2 blockers like famotidine are associated with osteoporosis risk long-term','H2 receptor antagonists are NOT associated with osteoporosis — that risk belongs to long-term PPIs','Famotidine and PPIs have identical side effect profiles including osteoporosis'],
+cor:[2],
+rat:'Long-term PPI use is associated with osteoporotic fracture risk (impairs calcium absorption). H2 blockers (famotidine, cimetidine, nizatidine) are NOT associated with this risk. Classic NCLEX trap confusing the two drug classes. H2 blockers given as SINGLE DOSE AT BEDTIME for PUD (suppresses nocturnal acid), whereas PPIs are given 30 min BEFORE the main meal.'},
+
+{id:18,type:'mcq',ngn:false,topic:'PPI — Administration, Long-Term Risks',
+stem:'A client is prescribed omeprazole 20 mg daily for GERD. Which nursing instruction is CORRECT?',
+opts:['Take 30 minutes before your largest meal of the day','Crush the capsule and mix with water for easier swallowing','Stop the medication as soon as heartburn symptoms completely resolve','Take with an antacid to enhance the therapeutic effect'],
+cor:[0],
+rat:'PPIs (omeprazole, pantoprazole, esomeprazole) must be given 30 min BEFORE the main meal — food activates the proton pumps that PPIs need to bind. Do NOT crush enteric-coated PPIs (altered absorption). Do NOT stop abruptly (rebound acid hypersecretion) — step-down approach required. Do NOT give simultaneously with antacids (altered absorption). Long-term PPI risks: osteoporotic fracture, C. diff infection, hypomagnesemia, renal disease.'},
+
+{id:19,type:'mcq',ngn:false,topic:'PUD — Perforation, Emergency',
+stem:'A client with peptic ulcer disease suddenly reports the severe epigastric pain present all day has COMPLETELY DISAPPEARED. What is the nurse\'s PRIORITY action?',
+opts:['Document the finding and continue the current plan of care','Administer a PRN analgesic since the client is comfortable','Notify the provider immediately — sudden pain relief may indicate gastric perforation','Advance the client\'s diet since the ulcer may be healing'],
+cor:[2],
+rat:'SUDDEN, COMPLETE PAIN RELIEF in PUD is a RED FLAG for PERFORATION. When the stomach/duodenum perforates, pressure from GI contents is momentarily released — pain briefly disappears — then followed RAPIDLY by diffuse severe peritonitis pain as GI contents contaminate the peritoneal cavity. NOTIFY SURGEON IMMEDIATELY — life-threatening surgical emergency. Do NOT give analgesics, advance diet, or just document. The client may deteriorate in minutes.'},
+
+{id:20,type:'mcq',ngn:false,topic:'H. pylori — Bismuth, Triple Therapy',
+stem:'A client prescribed bismuth subsalicylate (Pepto-Bismol) as part of quadruple H. pylori therapy. Which teaching point is MOST important?',
+opts:['Take bismuth with aspirin to enhance antimicrobial effect','Black discoloration of stools and tongue is expected and temporary — do not be alarmed','Store bismuth in the refrigerator and shake well before use','Bismuth can be safely combined with any aspirin-containing product'],
+cor:[1],
+rat:'Bismuth subsalicylate causes BLACK discoloration of stools AND tongue — EXPECTED and TEMPORARY (harmless). Clients not warned may panic thinking they are bleeding. CRITICAL SAFETY: bismuth contains salicylate — do NOT combine with aspirin (risk of salicylate OVERDOSE/toxicity). High-yield professor drug fact. Used in quadruple therapy (PPI + clarithromycin + amoxicillin + bismuth) — preferred for PCN allergy or previous treatment failure.'},
+
+{id:21,type:'mcq',ngn:false,topic:'Celiac Disease — Gluten-Free Diet',
+stem:'A client newly diagnosed with celiac disease asks which foods are safe to eat. Which menu item is SAFE?',
+opts:['Whole wheat pasta with marinara sauce','Rye crackers with hummus','Grilled chicken with rice and steamed broccoli','Barley soup with whole grain bread'],
+cor:[2],
+rat:'Celiac disease requires strict GLUTEN-FREE diet — eliminate ALL wheat, barley, and rye. Rice is naturally gluten-free. Grilled chicken and steamed broccoli are gluten-free. Wheat pasta, rye crackers, barley soup, and whole grain bread all CONTAIN GLUTEN and will trigger immune-mediated destruction of intestinal villi. Oats are problematic unless certified gluten-free (cross-contamination). NO cure for celiac disease — villi regenerate when gluten eliminated; surgery is NOT indicated.'},
+
+{id:22,type:'sata',ngn:false,topic:'Colorectal Cancer — Warning Signs',
+stem:'A 58-year-old male has a 3-month GI history. Which findings are consistent with possible colorectal cancer? (SELECT ALL THAT APPLY)',
+opts:['Pencil-thin stools indicating narrowing of the bowel lumen','Alternating constipation and diarrhea lasting more than 2 weeks','Rectal bleeding occurring with each bowel movement','Family history of CRC in his father diagnosed at age 54','Fatigue with hemoglobin 9.8 g/dL (iron-deficiency anemia)','Abdominal cramping that improves completely with passing flatus'],
+cor:[0,1,2,3,4],
+rat:'ALL FIVE are classic CRC warning signs: Pencil-thin stools = luminal narrowing from tumor (A). Persistent altered bowel habits >2 weeks (B). Rectal bleeding = tumor erosion into vessels (C). First-degree relative with CRC <60 years old significantly increases risk (D). Iron-deficiency anemia + fatigue = chronic occult blood loss from right-sided tumors (E). Cramping that fully resolves with flatus is more consistent with IBS, not CRC (F — distractor).'},
+
+{id:23,type:'mcq',ngn:false,topic:'Colonoscopy — Contraindications, Diverticulitis',
+stem:'A provider orders colonoscopy for a client with LLQ pain, fever, and elevated WBC. Which action should the nurse take?',
+opts:['Schedule the colonoscopy as ordered to determine the cause','Question the order — colonoscopy is contraindicated during acute diverticulitis','Perform the colonoscopy after administering IV analgesics first','Prepare client for a bowel prep and schedule for tomorrow morning'],
+cor:[1],
+rat:'Colonoscopy is CONTRAINDICATED during ACUTE DIVERTICULITIS. Inflamed, thin-walled diverticula can RUPTURE under insufflation pressure → perforation, peritonitis, and sepsis. Defer 6–8 weeks after acute episode fully resolves. The nurse\'s legal and ethical responsibility is to QUESTION and CLARIFY unsafe orders before implementation.'},
+
+{id:24,type:'mcq',ngn:false,topic:'EGD — Post-Procedure, Gag Reflex',
+stem:'A client returns from an EGD and asks for water. Which assessment must the nurse perform FIRST?',
+opts:['Check blood pressure and heart rate','Assess for abdominal pain or distension','Verify that the gag reflex has fully returned','Review the endoscopy report for findings'],
+cor:[2],
+rat:'After EGD, a topical anesthetic is applied to the throat which temporarily PARALYZES the gag reflex. Offering food or fluids BEFORE gag reflex returns = risk of aspiration into trachea = potentially fatal aspiration pneumonia. Assess gag reflex FIRST. Also: monitor VS every 15 min, assess for bleeding, perforation (severe pain), and confirm client has a driver (no driving 12–18 hr post-sedation).'},
+
+{id:25,type:'mcq',ngn:false,topic:'ERCP — Purpose, Post-Procedure',
+stem:'Which statement about ERCP is ACCURATE?',
+opts:['ERCP visualizes only the large intestine and rectum','ERCP is a purely diagnostic test with no therapeutic capabilities','ERCP can visualize the biliary tract and pancreatic duct and can remove gallstones, place stents, and perform sphincterotomy','ERCP requires only local anesthesia and client may drive home after'],
+cor:[2],
+rat:'ERCP = Endoscopic Retrograde Cholangiopancreatography. Visualizes biliary tract and pancreatic duct via sphincter of Oddi, and is used primarily for THERAPEUTIC purposes: stone removal, sphincterotomy, stent placement, biopsy. Requires IV sedation — no driving 12–18 hours. MAJOR COMPLICATION RISK: post-procedural pancreatitis — monitor amylase and lipase after procedure. Also monitor gag reflex, vital signs, and for pain/fever/jaundice indicating complications.'},
+
+{id:26,type:'mcq',ngn:false,topic:'Liver Biopsy — Post-Procedure Care',
+stem:'A client returns from a percutaneous liver biopsy. Which nursing action is the HIGHEST priority?',
+opts:['Encourage deep breathing and coughing vigorously every hour','Position on the right side and monitor vital signs every 15 minutes for the first hour','Apply a warm compress to the RUQ to reduce discomfort','Advance client to a regular diet since the procedure is complete'],
+cor:[1],
+rat:'After liver biopsy, position on RIGHT SIDE — body weight applies direct pressure to the biopsy site, acting as a tamponade to prevent hepatic hemorrhage. Liver disease patients have impaired clotting (elevated INR, decreased platelets, decreased clotting factors). VS every 15 min × 1 hr to detect early hemorrhage. CONTRAINDICATED: coughing (raises IAP → hepatic hemorrhage risk). Monitor for: RUQ pain, shoulder pain (referred), ↓BP, ↑HR.'},
+
+{id:27,type:'mcq',ngn:false,topic:'HIDA Scan — Purpose, Nursing',
+stem:'A client is scheduled for a HIDA scan. Which statement is ACCURATE?',
+opts:['Client swallows barium contrast to visualize the gallbladder','A radioactive tracer is injected IV and a gamma camera tracks bile flow — decreased flow indicates obstruction','The procedure requires general anesthesia and takes 4 hours','HIDA directly visualizes gallstones and is more accurate than ultrasound'],
+cor:[1],
+rat:'HIDA (hepatobiliary iminodiacetic acid) scan is a NUCLEAR MEDICINE test. A radioactive tracer is injected IV; a gamma camera tracks flow through the liver, gallbladder, and biliary ducts. DECREASED bile flow = gallbladder disease/obstruction. Nursing teaching: NPO before test; camera is large and positioned CLOSE TO THE BODY during scan (teach to prevent client anxiety). Abdominal ULTRASOUND is the BEST INITIAL test for cholecystitis. HIDA is ordered when ultrasound is inconclusive.'},
+
+{id:28,type:'mcq',ngn:false,topic:'Cholecystectomy — Right Shoulder Pain, Post-Op',
+stem:'A client returns from laparoscopic cholecystectomy and reports right shoulder pain 5/10. Which response is MOST appropriate?',
+opts:['Notify the surgeon immediately — this indicates a serious complication','Administer ibuprofen 400 mg since NSAIDs are effective for referred shoulder pain','Reassure the client — CO2 gas irritates the phrenic nerve causing expected referred shoulder pain','Apply ice to the right shoulder and reassess in one hour'],
+cor:[2],
+rat:'RIGHT SHOULDER PAIN after laparoscopic surgery is EXPECTED and NORMAL. CO2 gas used to insufflate the abdomen irritates the DIAPHRAGM. The diaphragm shares nerve supply with the right shoulder via the PHRENIC NERVE (C3–C5), causing referred pain. Resolves spontaneously as CO2 is absorbed over 24–48 hours. NSAIDs (ibuprofen) are CONTRAINDICATED if client has history of GERD or PUD — use acetaminophen or prescribed opioids.'},
+
+{id:29,type:'mcq',ngn:false,topic:'Paracentesis — Pre/Post-Procedure Care',
+stem:'Before large-volume paracentesis, which pre-procedure action should the nurse complete FIRST?',
+opts:['Administer furosemide IV to enhance fluid removal before the procedure','Have the client void to empty the bladder','Position client in high Fowler\'s position and wait 10 minutes','Measure abdominal girth only after the procedure to document effectiveness'],
+cor:[1],
+rat:'Client must VOID before paracentesis to EMPTY THE BLADDER — prevents inadvertent BLADDER PUNCTURE during needle insertion. Additional pre-procedure care: obtain baseline VS and weight; measure abdominal girth BEFORE (and after) to document fluid removal effectiveness. Post-procedure: document fluid character, color, and EXACT amount removed; weigh client (should lose weight equal to fluid removed); assess site for leakage; monitor VS; maintain bed rest per protocol.'},
+
+{id:30,type:'mcq',ngn:false,topic:'Appendicitis — McBurney\'s Point, Presentation',
+stem:'A 22-year-old female presents with pain migrating from periumbilical to right lower quadrant over 8 hours. Rebound tenderness positive. T 101.2°F. WBC 16,800. Which action is the priority?',
+opts:['Administer a Fleet enema to rule out constipation','Notify the provider and prepare for possible appendectomy','Administer morphine and reassess in 2 hours','Perform a colonoscopy to visualize the appendix directly'],
+cor:[1],
+rat:'CLASSIC APPENDICITIS: periumbilical pain migrating to RLQ (McBurney\'s point — 1/3 of the distance from right ASIS to umbilicus), positive rebound tenderness (Blumberg\'s sign), fever, elevated WBC. NOTIFY PROVIDER and prepare for appendectomy. NEVER administer enemas or laxatives (increase risk of perforation). NPO immediately. Colonoscopy cannot visualize the appendix. Time is critical — perforation risk increases every hour.'},
+
+{id:31,type:'mcq',ngn:false,topic:'Acute Pancreatitis — Meperidine Contraindication',
+stem:'A client with acute pancreatitis requests pain medication. MAR shows meperidine 75 mg IM q4h PRN AND morphine sulfate 4 mg IV q4h PRN. Which action should the nurse take?',
+opts:['Administer the meperidine IM as ordered','Administer the morphine sulfate IV — meperidine is contraindicated due to seizure risk','Give both simultaneously for maximum pain control','Hold all pain medications to avoid masking signs of deterioration'],
+cor:[1],
+rat:'MEPERIDINE IS CONTRAINDICATED IN PANCREATITIS. Its metabolite NORMEPERIDINE accumulates and causes CNS excitability → SEIZURES. MORPHINE SULFATE is the ANALGESIC OF CHOICE — administer IV as ordered. PROFESSOR-HIGHLIGHTED HIGH-YIELD FACT. Never give both simultaneously. Withholding all pain medication is unsafe — adequate analgesia is a priority in pancreatitis.'},
+
+{id:32,type:'sata',ngn:false,topic:'Clear Liquid vs Full Liquid Diet',
+stem:'The nurse is preparing a meal tray for a client ordered a CLEAR LIQUID diet post-abdominal surgery. Which items are appropriate? (SELECT ALL THAT APPLY)',
+opts:['Plain gelatin (Jell-O without fruit pieces)','Vanilla pudding','Strained fat-free chicken broth','Cream of wheat cereal','Ginger ale','Pulp-free white grape juice'],
+cor:[0,2,4,5],
+rat:'CLEAR LIQUID = transparent fluids liquid at room temperature with minimal GI residue: plain gelatin (transparent at body temp), strained clear broth, ginger ale (transparent carbonated beverage), pulp-free white grape juice or apple juice, popsicles, water, tea. FULL LIQUID adds OPAQUE items: vanilla pudding (opaque, dairy), cream of wheat (opaque, requires digestion) — these would NOT be on a clear liquid diet. If you can see through it at room temperature, it is generally a clear liquid.'},
+
+{id:33,type:'mcq',ngn:false,topic:'Diverticulitis — Acute Management',
+stem:'A client is admitted with acute diverticulitis confirmed by CT scan. Which dietary order is APPROPRIATE during the acute phase?',
+opts:['High-fiber diet with whole grains, raw vegetables, and legumes','NPO or clear liquid diet to rest the bowel','High-protein, high-fat diet to support tissue healing','Full liquid diet with supplemental fiber drinks twice daily'],
+cor:[1],
+rat:'During ACUTE DIVERTICULITIS, bowel needs REST. Client is placed on NPO or clear liquid diet, receives IV fluids and IV antibiotics. HIGH-FIBER diet is recommended for PREVENTION and MAINTENANCE after the acute episode resolves — NOT during the acute inflammatory phase when fiber increases motility and worsens inflammation. Remember: colonoscopy is CONTRAINDICATED during acute diverticulitis (insufflation pressure risks perforation).'},
+
+{id:34,type:'mcq',ngn:false,topic:'Hepatic Encephalopathy — Precipitating Factors',
+stem:'A client with cirrhosis develops increased confusion and asterixis. Which factor is the MOST LIKELY precipitant of hepatic encephalopathy?',
+opts:['Following a low-sodium diet as instructed','A GI bleed that occurred 2 days ago','Drinking 8 glasses of water daily','Walking 30 minutes daily for exercise'],
+cor:[1],
+rat:'GI BLEEDING is a major precipitant of hepatic encephalopathy — blood in the GI tract = massive protein load → bacteria digest blood → produce ammonia → failing liver cannot detoxify → ammonia crosses BBB → encephalopathy. Other precipitants: HIGH-PROTEIN diet, infection (especially SBP), HYPOKALEMIA (diuretics), hypovolemia, constipation, sedatives/opioids, alcohol. Low-sodium diet, adequate water intake, and exercise are all APPROPRIATE for cirrhosis and do NOT precipitate encephalopathy.'},
+
+{id:35,type:'mcq',ngn:false,topic:'C. difficile — Antidiarrheal Contraindication',
+stem:'A client with confirmed C. difficile infection has 8 watery stools today. The provider orders loperamide (Imodium) 2 mg after each loose stool. Which action should the nurse take?',
+opts:['Administer loperamide as ordered to reduce daily diarrhea episodes','Question the order — antidiarrheal medications are contraindicated in C. diff infection','Administer loperamide with lactulose to balance motility','Hold loperamide and administer an enema instead'],
+cor:[1],
+rat:'Antidiarrheal medications are CONTRAINDICATED in C. difficile. They inhibit bowel motility, trapping bacterial TOXINS in the colon. Toxin retention dramatically increases risk of TOXIC MEGACOLON (massive colonic dilation → gangrene → perforation → septic shock → death). The toxins MUST be expelled via diarrhea. Nurse must QUESTION and refuse this order. C. diff also requires: SOAP AND WATER handwashing (alcohol-based sanitizers do NOT kill C. diff spores), contact precautions (gown + gloves), private room.'},
+
+{id:36,type:'sata',ngn:false,topic:'Ulcerative Colitis vs Crohn\'s Disease — Key Differences',
+stem:'Which characteristics are specific to ULCERATIVE COLITIS (NOT Crohn\'s disease)? (SELECT ALL THAT APPLY)',
+opts:['Disease always involves the rectum and extends continuously toward the cecum','Deep transmural ulcerations with cobblestone appearance and skip lesions','Inflammation limited to the mucosal layer only','Fistula formation between bowel and adjacent organs','High risk of colorectal cancer with disease duration >10 years','10–20 liquid bloody stools per day during severe flares'],
+cor:[0,2,4,5],
+rat:"✓ UC ALWAYS involves the rectum, extending continuously (no skip lesions) — a defining characteristic (A). ✓ UC inflammation = MUCOSAL LAYER ONLY — Crohn's is transmural (C). ✓ UC has HIGH CRC RISK with >10-year disease duration (D). ✓ 10–20 liquid bloody stools/day = UC hallmark; Crohn's = 5–6 soft/loose non-bloody stools (F). ✗ Deep transmural ulcerations + cobblestone appearance + SKIP LESIONS = CROHN'S DISEASE, not UC (B wrong). ✗ FISTULAS = CROHN'S DISEASE (transmural inflammation allows fistula formation; UC cannot form fistulas — limited to mucosa) (D wrong)."},
+
+{id:37,type:'mcq',ngn:false,topic:"Crohn's Disease — Fistulas, Transmural Inflammation",
+stem:"Which complication is UNIQUE to Crohn's disease due to its transmural inflammation pattern?",
+opts:['Toxic megacolon','Colorectal cancer risk after 10 years','Fistula formation between the bowel and adjacent structures','Continuous mucosal ulceration beginning in the rectum'],
+cor:[2],
+rat:"FISTULAS are hallmark complications of Crohn's disease — inflammation is TRANSMURAL (all layers), allowing diseased tissue to erode through to adjacent structures. Types: enterovesical (bowel-to-bladder → pyuria, fecaluria), enterocutaneous (bowel-to-skin), enteroenteric (bowel-to-bowel), enterovaginal (bowel-to-vagina). UC inflammation is LIMITED TO THE MUCOSA — cannot form fistulas. Toxic megacolon can occur in both (more common UC). CRC risk exists in both. Continuous rectal involvement is UC's characteristic."},
+
+{id:38,type:'mcq',ngn:false,topic:'NG Tube — Placement Verification',
+stem:'The nurse is about to administer the first tube feeding through a newly placed NG tube. Which action must the nurse take FIRST?',
+opts:['Auscultate for air over the epigastric area to confirm placement','Check pH of gastric aspirate using pH paper','Obtain an abdominal x-ray to confirm correct placement before first use','Mark the tube at the nostril exit point and assess tube length'],
+cor:[2],
+rat:'X-RAY is the ONLY reliable method to confirm INITIAL NG tube placement before first use. Auscultation of air (the "whoosh" method) is NOT reliable — bowel sounds can be transmitted to the stomach even when tube is misplaced. pH testing alone is insufficient for initial confirmation. After x-ray confirmation, MARK the tube at the nostril exit point as baseline. If tube length changes from baseline, re-confirm placement. Misplacement can cause aspiration pneumonia or pneumothorax — life-threatening.'},
+
+{id:39,type:'mcq',ngn:false,topic:'TPN — D10W, Rebound Hypoglycemia',
+stem:'A client receiving TPN via central line is about to run out of the TPN bag with a 2-hour pharmacy delay. Which action should the nurse take?',
+opts:['Flush central line with NS and leave without infusion','Hang D5W (5% dextrose) at the same rate as the TPN','Hang D10W (10% dextrose) at the same rate as the TPN','Immediately administer D50 IV push to compensate'],
+cor:[2],
+rat:'When TPN is interrupted or runs out, hang D10W (10% dextrose) at the SAME RATE as the TPN. Reason: high dextrose concentration in TPN stimulates endogenous INSULIN secretion. If TPN stops abruptly, insulin levels remain elevated but glucose source is gone → REBOUND HYPOGLYCEMIA. D10W provides enough glucose to prevent hypoglycemia without full TPN osmolarity. D5W has insufficient glucose (5%) to offset the rebound. D50 push would cause dangerous hyperglycemia spike. Tested repeatedly on NCLEX.'},
+
+{id:40,type:'mcq',ngn:false,topic:'Enteral Nutrition — HOB Position, Feeding Safety',
+stem:'The nurse is caring for a client receiving continuous nasojejunal tube feeding. Which nursing action is CORRECT?',
+opts:['Elevate head of bed to at least 30 degrees continuously during the feeding','Place client flat between feeding cycles to promote gastric emptying','Add blue food dye to formula to detect aspiration','Change feeding bag and tubing every 72 hours to reduce waste'],
+cor:[0],
+rat:'HOB must be elevated ≥30 degrees CONTINUOUSLY during cyclic and continuous feedings to prevent aspiration — SAFETY PRIORITY. For BOLUS feeding: HOB ≥30–45 degrees during feeding AND for at least 1 hour AFTER each bolus. Blue food dye is NO LONGER added to formula — NOT safe, associated with serious complications (removed from practice). Feeding bag and tubing should be changed every 24 hours (NOT 72) to prevent bacterial growth. Gastric residual is checked every 6 hours.'},
+
+{id:41,type:'mcq',ngn:false,topic:'Gastric Bypass — Dumping Syndrome',
+stem:'A client 3 months post Roux-en-Y gastric bypass reports dizziness, tachycardia, sweating, and pallor approximately 20 minutes after eating. Which condition does the nurse suspect and what is the CORRECT management?',
+opts:['Normal post-operative recovery — no intervention needed',"Dumping syndrome — eat 6 small meals daily, avoid fluids WITH meals, lie down after eating, high-protein low-simple-carbohydrate diet",'GERD — elevate HOB and avoid eating 2–3 hours before lying down','Hypoglycemia — administer 15 g of rapid-acting carbohydrates immediately'],
+cor:[1],
+rat:'CLASSIC EARLY DUMPING SYNDROME: dizziness, tachycardia, diaphoresis, pallor occurring 20–30 min after eating. Hyperosmolar food rapidly enters small intestine → fluid shifts from bloodstream into intestinal lumen → reduced circulatory volume → vasomotor symptoms. Management: 6 small meals; HIGH protein, LOW simple carbohydrate; NO fluids WITH meals (drink between meals); LIE DOWN 30 min after meals (slows gastric emptying). This is OPPOSITE of GERD positioning. B12 must also be supplemented lifelong post-bypass.'},
+
+{id:42,type:'mcq',ngn:false,topic:'Obesity — BMI Classification, Bariatric Criteria',
+stem:'A client with BMI 37 and type 2 diabetes asks if they qualify for bariatric surgery. Which response is ACCURATE?',
+opts:['BMI 37 does not qualify — need BMI ≥40','BMI 35–39.9 with serious comorbidities like type 2 DM meets bariatric surgery criteria — this client qualifies','Bariatric surgery is only for clients with BMI over 50','BMI 37 classifies as overweight — surgery not indicated'],
+cor:[1],
+rat:'Bariatric surgery criteria: BMI ≥40 (Class III/morbid obesity) OR BMI ≥35 with SERIOUS COMORBIDITIES (type 2 DM, HTN, obstructive sleep apnea, GERD). BMI of 37 with T2DM meets the second criterion — eligible for surgical consultation. BMI classifications: 25–29.9 = overweight; 30–34.9 = Class I obesity; 35–39.9 = Class II obesity; ≥40 = Class III/morbid obesity. This client is in Class II obesity with a qualifying comorbidity.'},
+
+{id:43,type:'mcq',ngn:false,topic:'Gastroenteritis — Fluid Replacement, Transmission',
+stem:'A client with viral gastroenteritis has had 8 watery stools in 12 hours and feels lightheaded. Which fluid is BEST for oral rehydration?',
+opts:['Kool-Aid — provides needed sugar for energy','Gatorade or electrolyte-containing oral rehydration solution','Orange juice — provides vitamin C during illness','Cola beverages — carbonation soothes GI irritation'],
+cor:[1],
+rat:'GATORADE or electrolyte-containing oral rehydration solution is BEST — replaces lost sodium, potassium, and fluid while promoting fluid retention. Kool-Aid and cola beverages have high sugar content which draws MORE water into the bowel via osmosis and WORSENS diarrhea. Orange juice is acidic and can irritate the inflamed GI mucosa. Viral gastroenteritis = SUPPORTIVE CARE ONLY (rest, hydration) — antibiotics NOT indicated. SOAP AND WATER handwashing critical (alcohol-based sanitizers do NOT kill norovirus).'},
+
+{id:44,type:'mcq',ngn:false,topic:'Oral Cancer — Risk Factors, Location',
+stem:'Which finding on oral assessment warrants IMMEDIATE referral for biopsy?',
+opts:['Red irritation on the hard palate consistent with denture pressure','White curd-like patches on the tongue that easily scrape off with a tongue depressor','A painless, indurated (hardened) red and white lesion on the lateral border of the tongue present for 3 weeks','Multiple tiny aphthous ulcers on the inner cheek following a viral illness'],
+cor:[2],
+rat:'Painless, INDURATED (firm/hardened) lesion on the LATERAL TONGUE present >2 weeks = HIGH SUSPICION for ORAL CANCER → immediate biopsy. Oral cancer most commonly occurs on the LATERAL TONGUE and FLOOR OF THE MOUTH (NOT the hard palate). Risk factors: tobacco + alcohol (strongest, synergistic), HPV, prolonged sun exposure (lip cancer). White curd-like patches that scrape off = oral candidiasis (thrush — treated with nystatin swish and swallow). Aphthous ulcers = benign, self-limiting. Denture irritation = mechanical.'},
+
+{id:45,type:'sata',ngn:false,topic:'Stomatitis — Chemotherapy-Induced Mucositis',
+stem:'The nurse is developing a care plan for a client with chemotherapy-induced stomatitis. Which interventions are APPROPRIATE? (SELECT ALL THAT APPLY)',
+opts:['Rinse mouth with commercial mouthwash containing alcohol for antiseptic effect','Provide soft, non-irritating foods and avoid temperature extremes','Administer topical anesthetics (Magic Mouthwash) as ordered before meals','Provide frequent oral hygiene using a soft-bristled toothbrush and non-alcohol rinses','Remove dentures until mucositis has healed','Encourage smoking to reduce oral microbial counts'],
+cor:[1,2,3,4],
+rat:'✓ Soft, non-irritating, lukewarm foods minimize mucosal trauma (B). ✓ Topical anesthetics (Magic Mouthwash) before meals reduce pain and promote adequate nutrition (C). ✓ Frequent oral hygiene with soft-bristle brush and alcohol-free rinses removes debris, prevents secondary infection (D). ✓ Remove dentures to prevent additional mucosal trauma (E). ✗ Commercial mouthwash with ALCOHOL desiccates and further irritates already damaged oral mucosa — CONTRAINDICATED (A wrong). ✗ Smoking irritates the mucosa and impairs healing — CONTRAINDICATED (F wrong).'},
+
+{id:46,type:'mcq',ngn:false,topic:'Liver Transplant — Acute Rejection Signs',
+stem:'A client on post-op day 8 following liver transplantation has T 38.8°C, RUQ pain, increasing jaundice, and elevated AST, ALT, alkaline phosphatase, and total bilirubin. Which complication does the nurse suspect?',
+opts:['Acute kidney injury from immunosuppressive medications','Acute graft rejection — typically occurring 7–14 days post-transplant','Hepatic artery thrombosis presenting as sudden severe pain','Bile leak from anastomotic breakdown'],
+cor:[1],
+rat:'ACUTE GRAFT REJECTION typically occurs 7–14 days post-transplant. Classic signs (Table 50.3 — Iggy): tachycardia, FEVER, RUQ or flank pain, INCREASED JAUNDICE, diminished bile drainage or change in bile color. Lab changes: increased serum bilirubin, transaminases (AST/ALT), alkaline phosphatase, and prolonged prothrombin time. Treatment: more potent immunosuppressant agents. Day 8 timing + fever + RUQ pain + rising liver enzymes + jaundice = classic rejection pattern. Notify surgical team immediately.'},
+
+{id:47,type:'mcq',ngn:false,topic:'Pancreatic Cancer — Presentation, Prognosis',
+stem:'A 67-year-old newly diagnosed with pancreatic cancer asks why the cancer was not found sooner. Which response is MOST accurate?',
+opts:['Pancreatic cancer causes obvious early symptoms including severe weight loss and jaundice','Pancreatic cancer is typically caught early through routine colonoscopy screening','Pancreatic cancer is the "silent killer" — early symptoms are vague (mild epigastric discomfort, weight loss, fatigue), making early detection very difficult','Pancreatic cancer always causes immediate jaundice which should have been investigated earlier'],
+cor:[2],
+rat:'Pancreatic cancer = the "silent killer." Early symptoms vague and nonspecific: mild epigastric discomfort, anorexia, fatigue, gradual weight loss. By the time LATE symptoms appear — jaundice, clay-colored stools, dark urine (bile duct obstruction), severe back pain — cancer is usually Stage III or IV and unresectable. There is NO routine screening test analogous to colonoscopy for pancreatic cancer. Poor prognosis (~10% 5-year survival rate). Early-stage disease is often discovered INCIDENTALLY on imaging done for other reasons.'},
+
+{id:48,type:'mcq',ngn:false,topic:'Hiatal Hernia — Type I Medical Management',
+stem:'A client is told they have a Type I (sliding) hiatal hernia and asks if surgery is needed. Which response is MOST accurate?',
+opts:['Yes — all hiatal hernias require immediate surgical repair','Type I sliding hernias are managed MEDICALLY with lifestyle modifications and PPIs — surgery only if medical management fails or complications develop','Type I hernias are the most dangerous type because they strangulate and require urgent surgery','Surgery is always required to prevent esophageal cancer from Barrett\'s esophagus'],
+cor:[1],
+rat:'Type I (SLIDING) hiatal hernias — MOST COMMON type — are managed MEDICALLY just like GERD: PPIs, lifestyle modifications (small meals, HOB elevation, avoid trigger foods), weight loss. Surgery (Laparoscopic Nissen fundoplication) reserved for medical treatment failure, severe complications, large hernias. Types II–IV (PARAESOPHAGEAL/ROLLING) carry higher risk of complications (volvulus, strangulation, obstruction, hemorrhage) and are more likely to require surgery. Type I hernias rarely strangulate.'},
+
+{id:49,type:'sata',ngn:false,topic:'Hepatitis B — Transmission, Vaccination, Treatment',
+stem:'Which statements are CORRECT about Hepatitis B? (SELECT ALL THAT APPLY)',
+opts:['Hepatitis B is transmitted via the oral-fecal route through contaminated food and water','Standard precautions with blood and body fluid precautions are required','A vaccine is available and recommended for all unvaccinated healthcare workers','Most clients who contract Hepatitis B develop chronic infection','Nucleotide analogs such as tenofovir (Viread) or lamivudine are used to treat chronic Hepatitis B','A Hepatitis B vaccine does NOT exist — prevention relies on standard precautions alone'],
+cor:[1,2,4],
+rat:'✓ Standard precautions + blood/body fluid precautions required (B). ✓ Hep B vaccine recommended for all unvaccinated healthcare workers — 3-dose series (C). ✓ Tenofovir, lamivudine = nucleotide analogs used for CHRONIC Hep B (E). ✗ Hep B is transmitted through BLOOD, SEXUAL CONTACT, and PERINATAL exposure — NOT oral-fecal (that is Hep A) (A wrong). ✗ Most clients who contract Hep B CLEAR THE INFECTION — only ~5–10% of adults develop chronic infection (D wrong). ✗ A Hep B vaccine DOES exist and is highly effective (F wrong).'},
+
+{id:50,type:'mcq',ngn:false,topic:'Paralytic Ileus — Post-Op, Return of Bowel Function',
+stem:'A client is on post-operative day 2 after bowel resection. No bowel movement, no flatus, absent bowel sounds. Client wants to know when they can eat. Which response is MOST accurate?',
+opts:['You can begin clear liquids now since it has been 2 full days since surgery','Diet will be advanced when bowel sounds return AND you pass flatus — these together indicate bowel function is returning','Since this is lower GI surgery, you can start a full liquid diet immediately for nutrition','Absent bowel sounds after bowel surgery always require immediate surgical intervention'],
+cor:[1],
+rat:'After bowel surgery, PARALYTIC ILEUS is EXPECTED (2–4 days typical recovery). Most RELIABLE indicator of returning bowel function is PASSAGE OF FLATUS. Return of bowel sounds AND flatus together = safe to begin diet advancement, starting with clear liquids. Absent bowel sounds alone are expected early post-op and do NOT require emergency intervention unless accompanied by distension, pain, vomiting, or prolonged duration. Never advance diet based on time alone — assess for clinical return of peristalsis.'},
+];
+
+// ══════════════ STATE ══════════════
+let cQ=0,answers=new Array(50).fill(null),submitted=new Array(50).fill(false),timerInt=null,timeLeft=90*60;
+
+// ══════════════ TIMER ══════════════
+function startTimer(){timerInt=setInterval(()=>{timeLeft--;const m=Math.floor(timeLeft/60),s=timeLeft%60;document.getElementById('tmr').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(timeLeft<=300)document.getElementById('tmr').style.color='#FCA5A5';if(timeLeft<=0){clearInterval(timerInt);showResults();}},1000);}
+
+// ══════════════ BUILD ══════════════
+function startExam(){document.getElementById('cover').style.display='none';document.getElementById('qnav').style.display='block';buildNav();buildQs();showQ(0);startTimer();}
+function buildNav(){const n=document.getElementById('qni');Q.forEach((q,i)=>{const d=document.createElement('div');d.className='nd';d.id='nd'+i;d.textContent=i+1;d.onclick=()=>showQ(i);n.appendChild(d);});}
+
+function buildQs(){const c=document.getElementById('qcon');Q.forEach((q,i)=>{const el=document.createElement('div');el.className='qc';el.id='qc'+i;el.innerHTML=buildQHTML(q,i);c.appendChild(el);});}
+
+function buildQHTML(q,i){
+  const tl=q.type==='mcq'?'MCQ':q.type==='sata'?'SATA':q.type==='hl'?'Highlight':q.type==='mat'?'Matrix':'Drop-Down';
+  const bc=q.ngn?'bn':(q.type==='sata'?'bs':'bm');
+  let h=`<div class="qm"><span class="qn">Q${i+1}</span><span class="qt ${bc}">${q.ngn?'★ NGN — ':''}${tl}</span><span class="qtop">${q.topic}</span></div>`;
+  if(q.vig&&q.type!=='hl')h+=`<div class="vig">${q.vig}</div>`;
+  if(q.type==='sata')h+=`<div class="qs">${q.stem}</div><div class="sn">★ Select ALL that apply</div>`;
+  else if(q.type!=='hl')h+=`<div class="qs">${q.stem}</div>`;
+  if(q.type==='hl'){h+=`<div class="qs">${q.stem}</div><div class="hp" id="hp${i}"><span class="hlb">Click to highlight findings requiring immediate follow-up:</span>${q.vig}</div>`;}
+  else if(q.type==='dd'){h+=buildDDHTML(q,i);}
+  else if(q.type==='mat'){h+=buildMatHTML(q,i);}
+  else{h+=`<div class="opts" id="op${i}">`;q.opts.forEach((o,j)=>{h+=`<div class="opt" id="op${i}-${j}" onclick="selOpt(${i},${j})"><div class="ol">${String.fromCharCode(65+j)}</div><div>${o}</div></div>`;});h+=`</div>`;}
+  h+=`<div class="qa"><button class="bsub" id="sb${i}" onclick="subAns(${i})" disabled>Submit Answer</button><button class="bnxt" id="nb${i}" onclick="nextQ(${i})">${i<49?'Next Question →':'View Results'}</button></div>`;
+  h+=`<div class="fb" id="fb${i}"></div>`;
+  return h;
+}
+
+function buildDDHTML(q,i){
+  let parts=q.cloze.split(/\[(\d+)\]/);let h='<div class="ct">';
+  parts.forEach(p=>{if(/^\d+$/.test(p)){const b=parseInt(p),bl=q.blanks[b];h+=`<select class="cs" id="dd${i}-${b}" onchange="chkDD(${i})"><option value="">—select—</option>${bl.c.map((c,ci)=>`<option value="${ci}">${c}</option>`).join('')}</select>`;}else h+=p;});
+  return h+'</div>';
+}
+
+function buildMatHTML(q,i){
+  let h=`<table class="mt" id="mt${i}"><thead><tr><th>Nursing Intervention</th>`;
+  q.mrows[0].c.forEach(c=>{h+=`<th style="text-align:center">${c}</th>`;});
+  h+=`</tr></thead><tbody>`;
+  q.mrows.forEach((r,ri)=>{h+=`<tr id="mr${i}-${ri}"><td>${r.t}</td>`;r.c.forEach((c,ci)=>{h+=`<td style="text-align:center"><input type="radio" class="mr" name="m${i}-${ri}" value="${ci}" onchange="chkMat(${i})"></td>`;});h+=`</tr>`;});
+  return h+'</tbody></table>';
+}
+
+// ══════════════ INTERACTION ══════════════
+function showQ(idx){document.querySelectorAll('.qc').forEach(c=>c.classList.remove('active'));document.getElementById('qc'+idx).classList.add('active');cQ=idx;updNav();updProg();document.getElementById('qc'+idx).scrollIntoView({behavior:'smooth',block:'start'});
+const q=Q[idx];if(q.type==='hl'){document.querySelectorAll(`#qc${idx} .hw`).forEach(el=>{el.addEventListener('click',function(){if(submitted[idx])return;this.classList.toggle('sel');chkHL(idx);});});}}
+
+function selOpt(qi,oi){if(submitted[qi])return;const q=Q[qi];if(q.type==='sata'){const el=document.getElementById(`op${qi}-${oi}`);el.classList.toggle('sel');if(!answers[qi])answers[qi]=[];if(el.classList.contains('sel')){if(!answers[qi].includes(oi))answers[qi].push(oi);}else{answers[qi]=answers[qi].filter(x=>x!==oi);}document.getElementById('sb'+qi).disabled=answers[qi].length===0;}else{document.querySelectorAll(`#op${qi} .opt`).forEach(o=>o.classList.remove('sel'));document.getElementById(`op${qi}-${oi}`).classList.add('sel');answers[qi]=[oi];document.getElementById('sb'+qi).disabled=false;}}
+
+function chkHL(qi){const sel=document.querySelectorAll(`#hp${qi} .hw.sel`);document.getElementById('sb'+qi).disabled=sel.length===0;answers[qi]=Array.from(sel).map(el=>parseInt(el.getAttribute('data-i')));}
+
+function chkDD(qi){const q=Q[qi];const all=q.blanks.every((b,bi)=>{const el=document.getElementById(`dd${qi}-${bi}`);return el&&el.value!=='';});document.getElementById('sb'+qi).disabled=!all;if(!answers[qi])answers[qi]={};q.blanks.forEach((b,bi)=>{const el=document.getElementById(`dd${qi}-${bi}`);if(el&&el.value!=='')answers[qi][bi]=parseInt(el.value);});}
+
+function chkMat(qi){const q=Q[qi];const all=q.mrows.every((_,ri)=>document.querySelector(`input[name="m${qi}-${ri}"]:checked`));document.getElementById('sb'+qi).disabled=!all;}
+
+// ══════════════ GRADING ══════════════
+function subAns(qi){if(submitted[qi])return;submitted[qi]=true;const q=Q[qi];let ok=false,par=false;
+if(q.type==='mcq'){const a=answers[qi]||[];ok=a.length===1&&a[0]===q.cor[0];q.opts.forEach((_,j)=>{const el=document.getElementById(`op${qi}-${j}`);el.classList.add('dis');if(q.cor.includes(j))el.classList.add('cor');else if((a||[]).includes(j))el.classList.add('inc');});}
+else if(q.type==='sata'){const a=answers[qi]||[];const cs=new Set(q.cor),as=new Set(a);const cc=q.cor.filter(x=>as.has(x)).length;ok=cc===q.cor.length&&a.length===q.cor.length;par=!ok&&cc>0;q.opts.forEach((_,j)=>{const el=document.getElementById(`op${qi}-${j}`);el.classList.add('dis');if(cs.has(j)&&as.has(j))el.classList.add('cor');else if(cs.has(j)&&!as.has(j))el.classList.add('mis');else if(!cs.has(j)&&as.has(j))el.classList.add('inc');});}
+else if(q.type==='hl'){const a=answers[qi]||[];const ch=new Set(q.hlcor),as=new Set(a);const cc=q.hlcor.filter(x=>as.has(x)).length,wr=a.filter(x=>!ch.has(x)).length;ok=cc===q.hlcor.length&&wr===0;par=!ok&&cc>0;document.querySelectorAll(`#hp${qi} .hw`).forEach(el=>{const idx=parseInt(el.getAttribute('data-i'));el.classList.remove('sel');if(ch.has(idx)&&as.has(idx))el.classList.add('chl');else if(ch.has(idx)&&!as.has(idx))el.classList.add('mhl');else if(!ch.has(idx)&&as.has(idx))el.classList.add('whl');});}
+else if(q.type==='dd'){const a=answers[qi]||{};ok=q.blanks.every((b,bi)=>a[bi]===b.cor);par=!ok&&q.blanks.some((b,bi)=>a[bi]===b.cor);q.blanks.forEach((b,bi)=>{const el=document.getElementById(`dd${qi}-${bi}`);if(el){el.disabled=true;el.classList.add(a[bi]===b.cor?'ac':'aw');}});}
+else if(q.type==='mat'){let ac=true,ay=false;q.mrows.forEach((r,ri)=>{const s=document.querySelector(`input[name="m${qi}-${ri}"]:checked`);const sv=s?parseInt(s.value):-1;const rc=sv===r.cor;if(rc)ay=true;else ac=false;const re=document.getElementById(`mr${qi}-${ri}`);if(re)re.classList.add(rc?'rc':'rw');document.querySelectorAll(`input[name="m${qi}-${ri}"]`).forEach(r=>r.disabled=true);});ok=ac;par=!ac&&ay;}
+answers[qi]={ok,par};showFB(qi,ok,par,q);document.getElementById('sb'+qi).style.display='none';document.getElementById('nb'+qi).style.display='inline-block';updNav();}
+
+function showFB(qi,ok,par,q){const fb=document.getElementById('fb'+qi);fb.classList.add('sh');if(ok){fb.classList.add('cf');fb.innerHTML=`<div class="fh">✓ Correct!</div><div>${q.rat}</div>`;}else if(par){fb.classList.add('wf');fb.innerHTML=`<div class="fh">⚠ Partially Correct — Review carefully</div><div>${q.rat}</div>`;}else{fb.classList.add('wf');fb.innerHTML=`<div class="fh">✗ Incorrect</div><div>${q.rat}</div>`;}}
+
+function nextQ(qi){qi<49?showQ(qi+1):showResults();}
+
+// ══════════════ PROGRESS ══════════════
+function updNav(){Q.forEach((_,i)=>{const d=document.getElementById('nd'+i);if(!d)return;d.className='nd';if(i===cQ)d.classList.add('cur');if(submitted[i]&&answers[i]){const r=answers[i];if(r.ok)d.classList.add('ac');else if(r.par)d.classList.add('ap');else d.classList.add('aw');}});}
+function updProg(){const done=submitted.filter(Boolean).length,pct=(done/50)*100;document.getElementById('pbi').style.width=pct+'%';document.getElementById('pt').textContent=`${done}/50`;}
+
+// ══════════════ RESULTS ══════════════
+function showResults(){clearInterval(timerInt);document.getElementById('qcon').style.display='none';document.getElementById('qnav').style.display='none';
+let cor=0,par=0,wrg=0;
+const rows=Q.map((q,i)=>{const r=answers[i];if(!r||typeof r!=='object'||!('ok' in r)){wrg++;return `<tr><td>Q${i+1}</td><td>${q.topic}</td><td>${q.ngn?'★ NGN':q.type.toUpperCase()}</td><td class="rw2">Not attempted</td></tr>`;}
+if(r.ok){cor++;return `<tr><td>Q${i+1}</td><td>${q.topic}</td><td>${q.ngn?'★ NGN':q.type.toUpperCase()}</td><td class="rc2">✓ Correct</td></tr>`;}
+if(r.par){par++;return `<tr><td>Q${i+1}</td><td>${q.topic}</td><td>${q.ngn?'★ NGN':q.type.toUpperCase()}</td><td class="rp">⚠ Partial</td></tr>`;}
+wrg++;return `<tr><td>Q${i+1}</td><td>${q.topic}</td><td>${q.ngn?'★ NGN':q.type.toUpperCase()}</td><td class="rw2">✗ Incorrect</td></tr>`;});
+const score=cor+(par*0.5),pct=Math.round((score/50)*100);
+const gc=pct>=90?'ga':pct>=80?'gb':pct>=70?'gc':'gd';
+const gl=pct>=90?'A':pct>=80?'B':pct>=70?'C':'D';
+const el=document.getElementById('res');el.style.display='block';
+el.innerHTML=`<div class="rh"><h2 style="font-size:24px;font-weight:800;color:var(--navy)">Exam Complete</h2><p style="color:var(--gray-600);margin-top:5px">NUR201 Exam 3 Mock — GI System</p>
+<div class="sc ${gc}"><div class="sp">${pct}%</div><div class="sr">Grade ${gl} · ${score}/50</div></div></div>
+<div class="rb"><div class="rbc"><div class="rbv" style="color:var(--green)">${cor}</div><div class="rbl">Correct</div></div><div class="rbc"><div class="rbv" style="color:var(--orange)">${par}</div><div class="rbl">Partial</div></div><div class="rbc"><div class="rbv" style="color:var(--red)">${wrg}</div><div class="rbl">Incorrect</div></div></div>
+${pct<95?`<div style="background:var(--lt-orange);border-left:4px solid var(--orange);border-radius:7px;padding:12px 16px;font-size:13px;color:#7C2D12;margin-bottom:14px"><strong>Target: 95%+</strong> — Review highlighted incorrect topics. Return to the Comprehensive Study Guide for reinforcement.</div>`:`<div style="background:var(--lt-green);border-left:4px solid var(--green);border-radius:7px;padding:12px 16px;font-size:13px;color:#14532D;margin-bottom:14px"><strong>Target achieved!</strong> Outstanding. Review any partial-credit questions before the exam.</div>`}
+<table class="rt"><thead><tr><th>Q#</th><th>Topic</th><th>Type</th><th>Result</th></tr></thead><tbody>${rows.join('')}</tbody></table>
+<div style="text-align:center"><button class="brt" onclick="retake()">Retake Exam</button></div>`;
+el.scrollIntoView({behavior:'smooth'});}
+
+function retake(){answers=new Array(50).fill(null);submitted=new Array(50).fill(false);timeLeft=90*60;cQ=0;document.getElementById('res').style.display='none';document.getElementById('qcon').innerHTML='';document.getElementById('qcon').style.display='block';document.getElementById('qni').innerHTML='';document.getElementById('tmr').style.color='#FDE68A';buildNav();buildQs();showQ(0);document.getElementById('qnav').style.display='block';startTimer();}
+</script>
+</body></html>
